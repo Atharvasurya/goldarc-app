@@ -162,8 +162,8 @@ const Chatbot = () => {
             >
                 <div className="relative">
                     <MessageCircle size={24} className="text-white" />
-                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-400 rounded-full animate-ping" />
-                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-400 rounded-full" />
+                    <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full animate-ping" />
+                    <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full" />
                 </div>
                 <span className="hidden md:inline font-serif font-medium tracking-wide">GoldArc AI</span>
             </motion.button>
