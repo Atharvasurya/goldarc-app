@@ -18,9 +18,11 @@ export const NotificationProvider = ({ children }) => {
   const { user } = useAuth();
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
+  const isFirstLoad = useRef(true);
 
   // Real-time Firestore listener
   useEffect(() => {
+    isFirstLoad.current = true;
     if (!user) {
       setNotifications([]);
       setUnreadCount(0);
@@ -40,36 +42,56 @@ export const NotificationProvider = ({ children }) => {
 
     // Set up real-time listener
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const lastSeenId = localStorage.getItem(`goldarc_last_notif_${userId}`);
-
       const newNotifications = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data(),
         createdAt: doc.data().createdAt?.toDate?.() || new Date()
       }));
 
-      // Find truly new notifications
-      if (lastSeenId && newNotifications.length > 0) {
-        const newItems = newNotifications.filter(n => n.id > lastSeenId);
-        newItems.forEach(n => {
-          toast.success(`${n.title}: ${n.message}`, {
-            duration: 4000,
-            icon: '🔔'
-          });
+      // Only trigger toast popups for newly added notifications AFTER initial page load
+      if (!isFirstLoad.current) {
+        snapshot.docChanges().forEach(change => {
+          if (change.type === 'added') {
+            const n = {
+              id: change.doc.id,
+              ...change.doc.data(),
+              createdAt: change.doc.data().createdAt?.toDate?.() || new Date()
+            };
+            toast((t) => (
+              <div className="flex items-center justify-between gap-3 w-full pr-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">🔔</span>
+                  <div>
+                    <h5 className="font-bold text-xs text-gray-900">{n.title}</h5>
+                    <p className="text-xs text-gray-600 line-clamp-2">{n.message}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => toast.dismiss(t.id)}
+                  className="p-1.5 text-gray-400 hover:text-gray-800 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center font-bold text-xs"
+                  aria-label="Close notification"
+                >
+                  ✕
+                </button>
+              </div>
+            ), {
+              duration: 5000,
+              style: {
+                minWidth: '280px',
+                borderRadius: '16px',
+                border: '1px solid #e5e7eb',
+                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
+              }
+            });
+          }
         });
       }
 
-      // Update the baseline if we have data
-      if (newNotifications.length > 0) {
-        localStorage.setItem(`goldarc_last_notif_${userId}`, newNotifications[0].id);
-      }
-
+      isFirstLoad.current = false;
       setNotifications(newNotifications);
       setUnreadCount(newNotifications.filter(n => !n.isRead).length);
     }, (error) => {
       console.error('Notification listener error:', error);
-      // Fallback to API polling if Firestore listener fails
-      console.log('Falling back to API polling...');
     });
 
     // Cleanup listener on unmount
