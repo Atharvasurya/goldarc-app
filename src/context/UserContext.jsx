@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
         data = await apiService.getUsers();
       }
 
-      setUsers(data.map(u => ({ ...u, id: u._id })));
+      setUsers(data.map(u => ({ ...u, id: u._id || u.id || u.userId })));
       setIsLoading(false);
     } catch (err) {
       console.error('Failed to fetch users:', err);

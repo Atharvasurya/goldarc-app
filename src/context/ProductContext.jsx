@@ -30,7 +30,7 @@ export const ProductProvider = ({ children }) => {
 
             const normalizedData = data.map(p => ({
                 ...p,
-                id: p._id // Map MongoDB _id to frontend id
+                id: p._id || p.id || p.productId || generateId()
             }));
             setProducts(normalizedData);
             setIsLoading(false);

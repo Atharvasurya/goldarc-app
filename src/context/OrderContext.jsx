@@ -24,7 +24,7 @@ export const OrderProvider = ({ children }) => {
             // Map orderId from backend to id for frontend compatibility
             const normalizedData = data.map(o => ({
                 ...o,
-                id: o.orderId // Ensure frontend "id" maps to backend "orderId"
+                id: o.orderId || o.id || o._id
             }));
             setOrders(normalizedData);
             setIsLoading(false);
