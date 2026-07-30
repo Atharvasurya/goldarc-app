@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const BackgroundOrnaments = () => {
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const bgMotif = `${baseUrl}artifacts/goldarc_bg_motif_clean.png`;
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
       {/* Top Left Motif */}
@@ -18,7 +20,7 @@ const BackgroundOrnaments = () => {
         className="absolute -top-20 -left-20 w-96 h-96 opacity-[0.05]"
       >
         <img
-          src="/artifacts/goldarc_bg_motif_clean.png"
+          src={bgMotif}
           alt=""
           className="w-full h-full object-contain invert mix-blend-multiply"
         />
@@ -39,7 +41,7 @@ const BackgroundOrnaments = () => {
         className="absolute top-1/3 -right-32 w-[500px] h-[500px] opacity-[0.06]"
       >
         <img
-          src="/artifacts/goldarc_bg_motif_clean.png"
+          src={bgMotif}
           alt=""
           className="w-full h-full object-contain invert mix-blend-multiply"
         />
@@ -60,7 +62,7 @@ const BackgroundOrnaments = () => {
         className="absolute bottom-20 -left-24 w-80 h-80 opacity-[0.05]"
       >
         <img
-          src="/artifacts/goldarc_bg_motif_clean.png"
+          src={bgMotif}
           alt=""
           className="w-full h-full object-contain invert mix-blend-multiply"
         />

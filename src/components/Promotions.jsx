@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 
 const Promotions = () => {
+  const baseUrl = import.meta.env.BASE_URL || '/';
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,7 +58,7 @@ const Promotions = () => {
             <div className="absolute bottom-0 left-0 w-24 h-24 border-b-2 border-l-2 border-gold-200 rounded-bl-[40px] m-4 opacity-50" />
             <div className="w-32 h-32 p-4 bg-white rounded-2xl shadow-sm">
               <img
-                src="/artifacts/goldarc_exchange_icon.png"
+                src={`${baseUrl}artifacts/goldarc_exchange_icon.png`}
                 alt="Goldarc Exchange"
                 className="w-full h-full object-contain"
               />

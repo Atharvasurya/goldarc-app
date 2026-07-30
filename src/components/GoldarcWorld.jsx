@@ -2,29 +2,30 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const GoldarcWorld = () => {
+  const baseUrl = import.meta.env.BASE_URL || '/';
   const categories = [
     {
       id: 'wedding',
       title: 'Wedding',
-      image: '/artifacts/wedding_collection_1769858372956.png',
+      image: `${baseUrl}artifacts/wedding_collection_1769858372956.png`,
       className: 'aspect-[4/5] md:aspect-auto md:h-[450px]',
     },
     {
       id: 'diamond',
       title: 'Diamond',
-      image: '/artifacts/diamond_collection_1769858389585.png',
+      image: `${baseUrl}artifacts/diamond_collection_1769858389585.png`,
       className: 'aspect-[4/5] md:aspect-auto md:h-[550px]',
     },
     {
       id: 'gold',
       title: 'Gold',
-      image: '/artifacts/gold_collection_1769858409625.png',
+      image: `${baseUrl}artifacts/gold_collection_1769858409625.png`,
       className: 'aspect-[4/5] md:aspect-auto md:h-[500px] -mt-10 md:-mt-24',
     },
     {
       id: 'dailywear',
       title: 'Dailywear',
-      image: '/artifacts/daily_collection_1769858426956.png',
+      image: `${baseUrl}artifacts/daily_collection_1769858426956.png`,
       className: 'aspect-[4/5] md:aspect-auto md:h-[400px] -mt-10 md:-mt-24',
     },
   ];
