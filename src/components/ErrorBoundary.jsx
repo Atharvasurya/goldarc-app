@@ -29,7 +29,8 @@ class ErrorBoundary extends React.Component {
           color: '#1a1a1a'
         }}>
           <div style={{
-            maxWidth: '500px',
+            maxWidth: '600px',
+            width: '100%',
             backgroundColor: '#ffffff',
             padding: '2rem',
             borderRadius: '1.5rem',
@@ -40,23 +41,60 @@ class ErrorBoundary extends React.Component {
             <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', color: '#b48629' }}>
               GoldArc Portal Notice
             </h2>
-            <p style={{ fontSize: '0.875rem', color: '#4b5563', marginBottom: '1.5rem' }}>
-              The application encountered a brief connection update. Click below to reload.
+            <p style={{ fontSize: '0.875rem', color: '#4b5563', marginBottom: '1rem' }}>
+              The application encountered a brief runtime issue. Details below:
             </p>
-            <button
-              onClick={() => window.location.reload()}
-              style={{
-                padding: '0.75rem 1.5rem',
-                backgroundColor: '#d6ab4b',
-                color: '#ffffff',
-                border: 'none',
-                borderRadius: '0.75rem',
-                fontWeight: 'bold',
-                cursor: 'pointer'
-              }}
-            >
-              Reload Application
-            </button>
+            
+            <div style={{
+              textAlign: 'left',
+              backgroundColor: '#f3f4f6',
+              padding: '1rem',
+              borderRadius: '0.75rem',
+              fontSize: '0.75rem',
+              fontFamily: 'monospace',
+              color: '#dc2626',
+              marginBottom: '1.5rem',
+              maxHeight: '150px',
+              overflowY: 'auto'
+            }}>
+              <strong>Error:</strong> {this.state.error?.toString() || 'Unknown Error'}
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.75rem', justifyCenter: 'center' }}>
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.reload();
+                }}
+                style={{
+                  padding: '0.75rem 1.25rem',
+                  backgroundColor: '#dc2626',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '0.75rem',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  fontSize: '0.875rem'
+                }}
+              >
+                Clear Cache & Reset
+              </button>
+              <button
+                onClick={() => window.location.reload()}
+                style={{
+                  padding: '0.75rem 1.25rem',
+                  backgroundColor: '#d6ab4b',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '0.75rem',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  fontSize: '0.875rem'
+                }}
+              >
+                Reload Application
+              </button>
+            </div>
           </div>
         </div>
       );
