@@ -21,9 +21,8 @@ const BranchDashboard = () => {
         const fetchStock = async () => {
             if (!user) return;
             try {
-                const response = await fetch(`http://localhost:5000/api/branch-stock/${user.id}`);
-                const data = await response.json();
-                setStock(data);
+                const data = await apiService.getBranchStock(user.id);
+                setStock(data || []);
             } catch (err) {
                 console.error('Failed to fetch stock:', err);
             } finally {
