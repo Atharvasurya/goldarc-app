@@ -14,6 +14,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import ScrollToTop from './components/ScrollToTop';
+import Chatbot from './components/Chatbot';
 
 // Public Pages
 import Home from './pages/public/Home';
@@ -252,6 +253,7 @@ function App() {
                         <Footer />
 
                         <ScrollToTop />
+                        <Chatbot />
                       </div>
                       <Toaster
                         position="top-right"
