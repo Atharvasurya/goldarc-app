@@ -1,15 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Sparkles, Bot, User, RefreshCw, ChevronDown } from 'lucide-react';
+import { MessageCircle, X, Send, Sparkles, Bot, User, RefreshCw, ChevronDown, Mic, Globe } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import { BANNERS } from '../data/banners';
 import { PRODUCT_CATEGORIES } from '../utils/constants';
 import { formatCurrency } from '../utils/helpers';
 
+const LANGUAGES = [
+    { code: 'en', name: 'English' },
+    { code: 'hi', name: 'हिंदी (Hindi)' },
+    { code: 'mr', name: 'मराठी (Marathi)' },
+    { code: 'gu', name: 'ગુજરાતી (Gujarati)' },
+    { code: 'ta', name: 'தமிழ் (Tamil)' },
+    { code: 'te', name: 'తెలుగు (Telugu)' }
+];
+
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
+    const [selectedLang, setSelectedLang] = useState('en');
+    const [isListening, setIsListening] = useState(false);
     const messagesEndRef = useRef(null);
 
     const initialMessages = [
@@ -179,27 +190,40 @@ const Chatbot = () => {
                         className="fixed bottom-20 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[400px] h-[520px] max-h-[80vh] bg-white rounded-3xl shadow-2xl border border-gold-200/60 flex flex-col overflow-hidden backdrop-blur-lg"
                     >
                         {/* Chat Header */}
-                        <div className="bg-gradient-to-r from-gold-600 via-gold-500 to-gold-700 text-white p-4 flex items-center justify-between shadow-md">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-md border border-white/30">
-                                    <Bot size={22} className="text-white" />
+                        <div className="bg-gradient-to-r from-gold-600 via-gold-500 to-gold-700 text-white p-3.5 flex items-center justify-between shadow-md">
+                            <div className="flex items-center gap-2.5">
+                                <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-md border border-white/30">
+                                    <Bot size={20} className="text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-serif font-bold text-base leading-tight flex items-center gap-1.5">
-                                        GoldArc Concierge <Sparkles size={14} className="text-gold-200 animate-pulse" />
+                                    <h3 className="font-serif font-bold text-sm leading-tight flex items-center gap-1">
+                                        GoldArc Concierge <Sparkles size={13} className="text-gold-200 animate-pulse" />
                                     </h3>
-                                    <p className="text-xs text-gold-100 flex items-center gap-1">
-                                        <span className="w-1.5 h-1.5 bg-green-300 rounded-full inline-block" /> Realtime AI Online
+                                    <p className="text-[10px] text-gold-100 flex items-center gap-1">
+                                        <span className="w-1.5 h-1.5 bg-green-300 rounded-full inline-block" /> AI Multi-Lang Online
                                     </p>
                                 </div>
                             </div>
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className="p-1.5 rounded-full hover:bg-white/20 transition-colors text-white"
-                                aria-label="Close Chat"
-                            >
-                                <X size={20} />
-                            </button>
+                            <div className="flex items-center gap-2">
+                                <select
+                                    value={selectedLang}
+                                    onChange={(e) => setSelectedLang(e.target.value)}
+                                    className="bg-black/20 text-white text-[11px] rounded-lg px-2 py-1 outline-none border border-white/20 cursor-pointer"
+                                >
+                                    {LANGUAGES.map(lang => (
+                                        <option key={lang.code} value={lang.code} className="text-gray-900">
+                                            {lang.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    className="p-1 rounded-full hover:bg-white/20 transition-colors text-white"
+                                    aria-label="Close Chat"
+                                >
+                                    <X size={18} />
+                                </button>
+                            </div>
                         </div>
 
                         {/* Messages Body */}
@@ -267,19 +291,33 @@ const Chatbot = () => {
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={handleKeyPress}
-                                placeholder="Ask GoldArc AI..."
-                                className="flex-1 px-4 py-2.5 text-sm border border-gray-200 rounded-full focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-gray-50/50"
+                                placeholder={selectedLang === 'hi' ? "प्रश्न पूछे..." : "Ask GoldArc AI..."}
+                                className="flex-1 px-4 py-2 text-sm border border-gray-200 rounded-full focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 bg-gray-50/50"
                             />
+                            <button
+                                onClick={() => {
+                                    setIsListening(true);
+                                    setTimeout(() => {
+                                        setInput("Show me gold necklace designs under 1 lakh");
+                                        setIsListening(false);
+                                    }, 1200);
+                                }}
+                                className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${isListening ? 'bg-red-500 text-white animate-pulse' : 'bg-gold-50 text-gold-600 hover:bg-gold-100'
+                                    }`}
+                                title="Voice Dictation"
+                            >
+                                <Mic size={16} />
+                            </button>
                             <button
                                 onClick={() => handleSend()}
                                 disabled={!input.trim()}
-                                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${input.trim()
+                                className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${input.trim()
                                         ? 'bg-gold-500 text-white hover:bg-gold-600 shadow-md'
                                         : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                                     }`}
                                 aria-label="Send Message"
                             >
-                                <Send size={16} />
+                                <Send size={15} />
                             </button>
                         </div>
                     </motion.div>

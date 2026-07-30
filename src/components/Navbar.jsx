@@ -59,6 +59,9 @@ const Navbar = () => {
                         <Link to="/contact" className="text-gray-700 hover:text-gold-600 transition-colors font-medium">
                             Contact
                         </Link>
+                        <span className="inline-flex items-center gap-1 bg-gradient-to-r from-gold-500 to-gold-700 text-white text-xs px-2.5 py-1 rounded-full font-bold shadow-sm animate-pulse">
+                            ✨ AI Powered
+                        </span>
                     </div>
 
                     {/* Actions */}

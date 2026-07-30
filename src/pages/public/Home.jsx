@@ -9,6 +9,7 @@ import GoldarcWorld from '../../components/GoldarcWorld';
 import Promotions from '../../components/Promotions';
 import SectionDivider from '../../components/SectionDivider';
 import BackgroundOrnaments from '../../components/BackgroundOrnaments';
+import AiFeatureBar from '../../components/ai/AiFeatureBar';
 import { motion } from 'framer-motion';
 
 const Home = () => {
@@ -31,6 +32,9 @@ const Home = () => {
             <section>
                 <Carousel items={BANNERS} />
             </section>
+
+            {/* AI Suite Feature Bar */}
+            <AiFeatureBar />
 
             {/* Features */}
             <motion.section
