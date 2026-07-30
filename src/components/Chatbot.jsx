@@ -6,6 +6,9 @@ import { BANNERS } from '../data/banners';
 import { PRODUCT_CATEGORIES } from '../utils/constants';
 import { formatCurrency } from '../utils/helpers';
 
+import { useAuth } from '../context/AuthContext';
+import { USER_ROLES } from '../utils/constants';
+
 const LANGUAGES = [
     { code: 'en', name: 'English' },
     { code: 'hi', name: 'हिंदी (Hindi)' },
@@ -21,7 +24,35 @@ const Chatbot = () => {
     const [isTyping, setIsTyping] = useState(false);
     const [selectedLang, setSelectedLang] = useState('en');
     const [isListening, setIsListening] = useState(false);
+    const { user } = useAuth();
     const messagesEndRef = useRef(null);
+
+    const isAdmin = user?.role === USER_ROLES.ADMIN;
+    const isBranch = user?.role === USER_ROLES.FRANCHISE_BRANCH;
+
+    useEffect(() => {
+        if (isAdmin) {
+            setMessages([
+                {
+                    id: '1',
+                    sender: 'bot',
+                    text: `Welcome Head Office Admin! 👑 I am your Executive AI Operations & Business Intelligence Assistant. How can I assist with GoldArc operations today?`,
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    suggestions: ['Branch Revenue Overview', 'Low Stock Alert', 'Active Job Cards', 'Logistics Dispatch']
+                }
+            ]);
+        } else if (isBranch) {
+            setMessages([
+                {
+                    id: '1',
+                    sender: 'bot',
+                    text: `Hello ${user?.name || 'Branch Partner'}! 🏢 Welcome to your Franchise Portal AI Assistant. How can I help with your inventory orders today?`,
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    suggestions: ['Branch Stock Check', 'Place Stock Order', 'Order Status', 'Logistics SLA']
+                }
+            ]);
+        }
+    }, [user?.role]);
 
     const initialMessages = [
         {
@@ -45,9 +76,47 @@ const Chatbot = () => {
         }
     }, [messages, isOpen]);
 
-    // Smart Domain AI Response Engine trained on GoldArc Website Data
+    // Smart Domain AI Response Engine trained on GoldArc Website Data & Admin Intelligence
     const generateAiResponse = (userText) => {
         const query = userText.toLowerCase();
+
+        // --- ADMIN ROLE SPECIFIC AI INTELLIGENCE ---
+        if (isAdmin) {
+            if (query.includes('sales') || query.includes('revenue') || query.includes('income') || query.includes('turnover') || query.includes('overview')) {
+                return {
+                    text: `📊 **Head Office Executive Sales Report**:\n\n• **Monthly Network Revenue**: ₹1,42,50,000 (+18.4% YoY)\n• **Top Performing Branch**: Mumbai Zaveri Central (₹58.2 Lakhs)\n• **Second Branch**: Bangalore South (₹44.0 Lakhs)\n• **Active Orders Processing**: 14 Franchise Orders\n• **Average Order Fulfillment Time**: 28.5 Hours`,
+                    suggestions: ['Low Stock Alert', 'Active Job Cards', 'Logistics Dispatch']
+                };
+            }
+
+            if (query.includes('stock') || query.includes('inventory') || query.includes('low') || query.includes('alert') || query.includes('replenish')) {
+                return {
+                    text: `⚠️ **AI Inventory Risk & Low Stock Report**:\n\n• **Mumbai Branch**: 2 Solitaire Rings remaining (Risk: HIGH)\n• **Bangalore Branch**: 1 Gold Haram & 3 Jhumkas remaining (Risk: CRITICAL)\n• **Delhi Branch**: 4 Silver Sets remaining (Risk: MEDIUM)\n\n👉 *AI Recommendation: Run Smart Restock Predictor to auto-replenish.*`,
+                    suggestions: ['Run Smart Restock', 'View Active Job Cards']
+                };
+            }
+
+            if (query.includes('job') || query.includes('card') || query.includes('artisan') || query.includes('workshop') || query.includes('custom')) {
+                return {
+                    text: `🔨 **Workshop & Job Card Operations Report**:\n\n• **Active Custom Orders**: 8 Job Cards in workshop\n• **Master Artisans Assigned**: 3 Ramesh Sharma, 2 Suresh Kar, 3 Pending\n• **Average Gold Wastage**: 0.14g (Target: <0.20g — Optimal ✅)\n• **On-time Completion Rate**: 96.8%`,
+                    suggestions: ['Assign Artisans', 'Logistics Dispatch']
+                };
+            }
+
+            if (query.includes('logistics') || query.includes('dispatch') || query.includes('courier') || query.includes('shipping') || query.includes('delivery')) {
+                return {
+                    text: `🚚 **Armored Logistics & Dispatch Overview**:\n\n• **In Transit**: 4 High-value orders via Sequel Logistics (Insured Cover: ₹50L)\n• **Ready for Dispatch**: 2 Orders awaiting BVC Courier pickup\n• **Logistics SLA Performance**: 99.4% On-time Armored Delivery`,
+                    suggestions: ['Run Logistics Selector', 'Branch Revenue']
+                };
+            }
+
+            if (query.includes('user') || query.includes('branch') || query.includes('franchise') || query.includes('account')) {
+                return {
+                    text: `👥 **Franchise Network Account Report**:\n\n• **Active Franchise Accounts**: 12 Verified Branch Accounts\n• **Pending Franchise Inquiries**: 4 New Applicants\n• **System Status**: All 12 Branch Portals online & synced with Firestore.`,
+                    suggestions: ['Branch Revenue Overview', 'Low Stock Alert']
+                };
+            }
+        }
 
         // 1. Product Search Engine
         if (query.includes('gold') || query.includes('necklace') || query.includes('diamond') || query.includes('ring') || query.includes('bangle') || query.includes('earring') || query.includes('silver') || query.includes('pendant')) {
@@ -197,10 +266,10 @@ const Chatbot = () => {
                                 </div>
                                 <div>
                                     <h3 className="font-serif font-bold text-sm leading-tight flex items-center gap-1">
-                                        GoldArc Concierge <Sparkles size={13} className="text-gold-200 animate-pulse" />
+                                        {isAdmin ? 'GoldArc Admin AI 👑' : isBranch ? 'GoldArc Branch AI 🏢' : 'GoldArc Concierge ✨'}
                                     </h3>
                                     <p className="text-[10px] text-gold-100 flex items-center gap-1">
-                                        <span className="w-1.5 h-1.5 bg-green-300 rounded-full inline-block" /> AI Multi-Lang Online
+                                        <span className="w-1.5 h-1.5 bg-green-300 rounded-full inline-block" /> {isAdmin ? 'Executive Intelligence Online' : 'AI Multi-Lang Online'}
                                     </p>
                                 </div>
                             </div>
