@@ -12,8 +12,14 @@ export const useWishlist = () => {
 
 export const WishlistProvider = ({ children }) => {
     const [wishlistItems, setWishlistItems] = useState(() => {
-        const savedWishlist = localStorage.getItem('goldarc_wishlist');
-        return savedWishlist ? JSON.parse(savedWishlist) : [];
+        try {
+            const savedWishlist = localStorage.getItem('goldarc_wishlist');
+            return savedWishlist ? JSON.parse(savedWishlist) : [];
+        } catch (e) {
+            console.warn('Failed to parse wishlist from localStorage:', e);
+            localStorage.removeItem('goldarc_wishlist');
+            return [];
+        }
     });
 
     useEffect(() => {

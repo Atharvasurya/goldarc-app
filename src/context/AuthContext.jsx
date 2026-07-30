@@ -18,9 +18,14 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         // Check if user is already logged in (from localStorage)
-        const savedUser = localStorage.getItem('goldarc_user');
-        if (savedUser) {
-            setUser(JSON.parse(savedUser));
+        try {
+            const savedUser = localStorage.getItem('goldarc_user');
+            if (savedUser) {
+                setUser(JSON.parse(savedUser));
+            }
+        } catch (e) {
+            console.warn('Failed to parse saved user from localStorage:', e);
+            localStorage.removeItem('goldarc_user');
         }
         setLoading(false);
     }, []);

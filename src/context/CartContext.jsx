@@ -12,8 +12,14 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState(() => {
-        const savedCart = localStorage.getItem('goldarc_cart');
-        return savedCart ? JSON.parse(savedCart) : [];
+        try {
+            const savedCart = localStorage.getItem('goldarc_cart');
+            return savedCart ? JSON.parse(savedCart) : [];
+        } catch (e) {
+            console.warn('Failed to parse cart from localStorage:', e);
+            localStorage.removeItem('goldarc_cart');
+            return [];
+        }
     });
 
     useEffect(() => {
