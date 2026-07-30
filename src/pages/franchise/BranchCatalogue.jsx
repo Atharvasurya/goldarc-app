@@ -11,7 +11,7 @@ const BranchCatalogue = () => {
                     <p className="text-lg text-gray-600">Browse and order from our complete collection</p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                     {PRODUCTS.map((product) => (
                         <ProductCard key={product.id} product={product} />
                     ))}

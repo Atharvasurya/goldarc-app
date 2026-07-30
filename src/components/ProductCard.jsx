@@ -63,16 +63,16 @@ const ProductCard = ({ product, onClick }) => {
 
                 {/* Quick Actions */}
                 {canAddToCart && (
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 md:p-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                         <button
                             onClick={handleAddToCart}
                             disabled={isInCart(product.id)}
-                            className={`w-full flex items-center justify-center space-x-2 py-2 rounded-lg transition-colors ${isInCart(product.id)
+                            className={`w-full flex items-center justify-center space-x-1.5 md:space-x-2 py-1.5 md:py-2 rounded-lg transition-colors text-xs md:text-sm ${isInCart(product.id)
                                 ? 'bg-gray-400 cursor-not-allowed'
                                 : 'bg-gold-500 hover:bg-gold-600'
                                 } text-white`}
                         >
-                            <ShoppingCart size={18} />
+                            <ShoppingCart size={16} className="md:w-4 md:h-4" />
                             <span className="font-medium">
                                 {isInCart(product.id) ? 'In Cart' : 'Add to Cart'}
                             </span>

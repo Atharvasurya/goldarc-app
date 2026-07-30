@@ -20,13 +20,13 @@ const GoldarcWorld = () => {
       id: 'gold',
       title: 'Gold',
       image: `${baseUrl}artifacts/gold_collection_1769858409625.png`,
-      className: 'aspect-[4/5] md:aspect-auto md:h-[500px] -mt-10 md:-mt-24',
+      className: 'aspect-[4/5] md:aspect-auto md:h-[500px] md:-mt-24',
     },
     {
       id: 'dailywear',
       title: 'Dailywear',
       image: `${baseUrl}artifacts/daily_collection_1769858426956.png`,
-      className: 'aspect-[4/5] md:aspect-auto md:h-[400px] -mt-10 md:-mt-24',
+      className: 'aspect-[4/5] md:aspect-auto md:h-[400px] md:-mt-24',
     },
   ];
 
