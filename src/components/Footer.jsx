@@ -9,10 +9,12 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* Brand */}
                     <div>
-                        <div className="flex items-center space-x-2 mb-4">
-                            <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-gold-700 rounded-full flex items-center justify-center">
-                                <span className="text-white font-bold text-xl">G</span>
-                            </div>
+                        <div className="flex items-center space-x-3 mb-4">
+                            <img 
+                                src="/finallogo.png" 
+                                alt="GoldArc Logo" 
+                                className="w-10 h-10 object-contain drop-shadow" 
+                            />
                             <span className="text-2xl font-serif font-bold text-gold-400">GoldArc</span>
                         </div>
                         <p className="text-sm text-gray-400 mb-4">

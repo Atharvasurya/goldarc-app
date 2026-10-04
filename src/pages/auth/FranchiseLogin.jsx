@@ -44,8 +44,8 @@ const FranchiseLogin = () => {
             <div className="max-w-md w-full">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4">
-                        <Building2 className="text-gold-600" size={32} />
+                    <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 rounded-2xl p-2 mb-4 border border-gold-400/30 backdrop-blur-sm shadow-xl">
+                        <img src="/finallogo.png" alt="GoldArc Logo" className="w-16 h-16 object-contain" />
                     </div>
                     <h2 className="text-3xl font-serif font-bold text-white mb-2">Franchise Login</h2>
                     <p className="text-gold-200">Sign in to access your franchise portal</p>

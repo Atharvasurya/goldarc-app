@@ -36,8 +36,8 @@ const AdminLogin = () => {
             <div className="max-w-md w-full">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-gold-500 to-gold-700 rounded-full mb-4">
-                        <span className="text-white font-bold text-2xl">G</span>
+                    <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 rounded-2xl p-2 mb-4 border border-gold-500/20 backdrop-blur-sm shadow-xl">
+                        <img src="/finallogo.png" alt="GoldArc Logo" className="w-16 h-16 object-contain" />
                     </div>
                     <h2 className="text-3xl font-serif font-bold text-white mb-2">Admin Login</h2>
                     <p className="text-gray-400">Sign in to access the admin dashboard</p>

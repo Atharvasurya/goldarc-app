@@ -39,8 +39,8 @@ const BillModal = ({ isOpen, onClose, order }) => {
                 {/* Invoice Header */}
                 <div className="flex justify-between items-start border-b-2 border-gold-500 pb-6 mb-6">
                     <div>
-                        <div className="flex items-center text-gold-600 mb-2">
-                            <Crown size={32} className="mr-2 fill-current" />
+                        <div className="flex items-center space-x-2 text-gold-600 mb-2">
+                            <img src="/finallogo.png" alt="GoldArc Logo" className="w-8 h-8 object-contain" />
                             <span className="text-3xl font-serif font-bold tracking-tight">GOLDARC</span>
                         </div>
                         <p className="text-sm text-gray-500 font-medium tracking-wide uppercase">House of Premium Jewellery</p>

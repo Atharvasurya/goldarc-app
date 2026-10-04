@@ -38,10 +38,12 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
-                    <Link to="/" className="flex items-center space-x-2 mr-8 shrink-0">
-                        <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-gold-700 rounded-full flex items-center justify-center shrink-0">
-                            <span className="text-white font-bold text-xl">G</span>
-                        </div>
+                    <Link to="/" className="flex items-center space-x-3 mr-8 shrink-0 group">
+                        <img 
+                            src="/finallogo.png" 
+                            alt="GoldArc Logo" 
+                            className="w-10 h-10 object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105" 
+                        />
                         <span className="text-2xl font-serif font-bold text-gradient shrink-0">GoldArc</span>
                     </Link>
 
