@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, Copyright } from 'lucide-react';
 
 const Footer = () => {
     return (
@@ -108,10 +108,14 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                    <p className="text-sm text-gray-400">
-                        &copy; {new Date().getFullYear()} GoldArc. All rights reserved.
-                    </p>
+                <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    {/* Highlighted Copyright Notice */}
+                    <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-gold-950/70 border border-gold-500/40 text-gold-300 shadow-[0_0_15px_rgba(212,175,55,0.15)] transition-all duration-300 hover:border-gold-400">
+                        <Copyright size={17} className="text-gold-400 shrink-0 animate-pulse" />
+                        <span className="text-xs sm:text-sm font-medium tracking-wide">
+                            All rights reserved to <span className="text-white font-semibold underline decoration-gold-400/50 underline-offset-2">Atharva Ravindra Suryawanshi</span> copyrighted content
+                        </span>
+                    </div>
                     <div className="flex space-x-6 mt-4 md:mt-0">
                         <a href="#" className="text-sm text-gray-400 hover:text-gold-400 transition-colors">
                             Privacy Policy
